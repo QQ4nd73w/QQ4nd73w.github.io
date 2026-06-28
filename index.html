@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Змейка</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="game-page">
+  <div class="container">
+    <div class="header-row">
+        <h1>Zмейка</h1>
+      <div style="display:flex;gap:8px;align-items:center">
+          <button id="themeToggle" class="theme-toggle" aria-pressed="false">Тёмная</button>
+        <button id="muteBtn" class="theme-toggle" type="button">🔊</button>
+          <label for="difficultySelect" style="font-size:13px;margin-left:8px;color:var(--muted);">Уровень</label>
+        <select id="difficultySelect" aria-label="Сложность" style="margin-left:6px;padding:6px 8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
+            <option value="easy">Легко</option>
+            <option value="normal">Нормально</option>
+            <option value="hard">Сложно</option>
+        </select>
+      </div>
+    </div>
+    <div class="score-row">
+        <div id="score">Счёт: 0</div>
+        <div id="best">Рекорд: 0</div>
+    </div>
+    <div id="timer" class="timer" aria-live="polite" style="font-size:14px;color:var(--muted);margin-top:6px"></div>
+    <div id="buffs" class="buffs" aria-live="polite"></div>
+    <canvas id="gameCanvas" width="300" height="300"></canvas>
+    <div class="controls">
+      <button id="startBtn" type="button" class="tricolor-btn">Старт</button>
+      <button id="pauseBtn" type="button" class="tricolor-btn">Пауза</button>
+      <button id="restartBtn" type="button" class="tricolor-btn">Перезапустить</button>
+      <button id="menuBtn" type="button" class="tricolor-btn">Главное меню</button>
+    </div>
+    <p class="hint">Управление: стрелками/wasd.</p>
+  </div>
+  <div id="pauseOverlay" class="pause hidden">Пауза — нажмите пробел для продолжения</div>
+
+  <div id="gameOverModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-content">
+      <h2>Игра окончена</h2>
+      <div id="finalScore">Счёт: 0</div>
+      <h3>Локальные рекорды</h3>
+      <table id="recordsTable">
+        <thead><tr><th>#</th><th>Очки</th><th>Дата</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="modal-controls">
+        <button id="modalRestart" type="button" class="tricolor-btn">Перезапустить</button>
+        <button id="modalMenu" type="button" class="tricolor-btn">В меню</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    try{
+      const seen = localStorage.getItem('snakeSeenMenu');
+      const isMenuPage = window.location.pathname.endsWith('menu.html') || window.location.pathname.endsWith('/menu.html');
+      if(!seen && !isMenuPage){ window.location.href = 'menu.html'; }
+    }catch(e){}
+  </script>
+  <script src="js/state.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/difficulty.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/score.js"></script>
+  <script src="js/food.js"></script>
+  <script src="js/buffs.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/routing.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
